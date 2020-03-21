@@ -31,6 +31,7 @@ from airflow import DAG
 # Operators; we need this to operate!
 from airflow.operators.bash_operator import BashOperator
 from airflow.utils.dates import days_ago
+from airflow.operators.http_operator import SimpleHttpOperator
 
 # [END import_module]
 
@@ -118,5 +119,14 @@ t3 = BashOperator(
 )
 # [END jinja_template]
 
-t1 >> [t2, t3]
+t4 = SimpleHttpOperator(
+    task_id='postbacktohttp',
+    method='GET',
+    http_conn_id='http_default_test',
+    endpoint='getproducts',
+    headers={"Content-Type": "application/json"},
+    xcom_push=True,
+    dag=dag)
+
+t1 >> [t2, t3, t4]
 # [END tutorial]
