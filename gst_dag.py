@@ -24,7 +24,7 @@ dag = DAG('import_data', default_args=default_args)
 dag.doc_md =  """\
 #### DAG import_data
 import data sample dag, 
-required conf productId
+required conf productId, state
 """
 
 def print_context(ds, **kwargs):
@@ -51,7 +51,7 @@ t5 = SimpleHttpOperator(
     http_conn_id='http_default_test',
     endpoint='updatestatus',
     xcom_push=True,
-    data={"status": 3, "completed": True, "productId": '{{ dag_run.conf["productId"] }}'},
+    data={"state": 2, "completed": True, "productId": '{{ dag_run.conf["productId"] }}'},
     trigger_rule="all_done",
     dag=dag)
 
