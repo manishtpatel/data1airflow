@@ -80,12 +80,6 @@ t5 = SimpleHttpOperator(
     trigger_rule="all_done",
     dag=dag)
 
-also_run_this = BashOperator(
-    task_id='also_run_this',
-    bash_command='echo "run_id={{ run_id }} | dag_run={{ dag_run }}"',
-    dag=dag,
-)
-
 t1 >> t2 >> [t3, t4] >> t5
 
 
