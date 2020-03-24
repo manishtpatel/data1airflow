@@ -5,7 +5,7 @@ services:
     ports:
     - "8080:8080"
     volumes:
-    - ~/AirflowDemo:/usr/local/airflow/dags
+    - ./:/usr/local/airflow/dags
   mongo:
     image: mongo
     ports:
