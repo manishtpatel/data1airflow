@@ -22,13 +22,16 @@ default_args = {
 }
 
 dag = DAG('import_data', default_args=default_args)
+dag_prod = DAG('configure_product', default_args=default_args)
+dag_runstats = DAG('run_stats', default_args=default_args)
+dag_review = DAG('review', default_args=default_args)
+dag_publish = DAG('publish', default_args=default_args)
 
 dag.doc_md = """\
 #### DAG import_data
 import data sample dag, 
 required conf productId, state
 """
-
 
 def print_context(ds, **kwargs):
     # time.sleep(5)
