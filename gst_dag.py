@@ -6,7 +6,7 @@ from datetime import timedelta
 
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from airflow.operators.http_operator import SimpleHttpOperator
+from airflow.operators.http_operator import SimpleHttpOperator, HttpHook
 from airflow.operators.bash_operator import BashOperator
 from airflow.utils.dates import days_ago
 
@@ -44,7 +44,11 @@ def print_context(ds, **kwargs):
 
 
 def generateProdFilters(ds, **kwargs):
-    rd = pd.read_csv('http://host.docker.internal:3000/public/train.csv')
+    http = HttpHook(http_conn_id='http_default_test')
+    http.get_conn()
+    print(http.base_url)
+
+    rd = pd.read_csv(http.base_url + '/public/train.csv')
     arrayData = rd['SaleCondition'].unique()
 
     # data to be sent to api
