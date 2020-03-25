@@ -33,6 +33,7 @@ import data sample dag,
 required conf productId, state
 """
 
+
 def print_context(ds, **kwargs):
     # time.sleep(5)
     print(kwargs)
@@ -57,7 +58,7 @@ def generateProdFilters(ds, **kwargs):
 
     # sending post request and saving response as response object
     r = requests.post(
-        url='http://host.docker.internal:3000/productdata', data=data)
+        url=http.base_url + '/productdata', data=data)
 
     # extracting response text
     pastebin_url = r.text
